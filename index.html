@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>My Dice Game</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .game_container{
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+    }
+    .container{
+        height: 90vh;
+        width: 60%;
+        border: 1px solid black;
+        background: linear-gradient(#019587,white);
+        text-align: center;
+        border-radius: 5px;
+    }
+    h1 {
+        font-size: 80px;
+    }
+    .players {
+        display: inline-block;
+        margin: 30px;
+        padding: 30px;
+    }
+    .players p {
+        font-size: 3rem;
+        padding-bottom: 20px;
+    }
+
+    .roll p {
+        display: inline-block;
+        font-size: 1.2rem;
+        border: 1px solid black;
+        padding: 20px 40px;
+        margin-top: 10px;
+        border-radius: 4px;
+        background: linear-gradient(#019587, #055805);
+        color: #fff;
+    }
+    .btn {
+        display: inline-block;
+        font-size: 1.2rem;
+        border: 1px solid black;
+        padding: 20px 40px;
+        margin-top: 10px;
+        border-radius: 4px;
+        background: linear-gradient(#019587, #055805);
+        color: #fff;
+        margin: 15px;
+    }
+    @media screen and (min-width: 0px) and (max-width: 760px) {
+        .container {
+            height: 100%;
+            width: 100%;
+        }
+        h1 {
+            font-size: 60px;
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+        .players p {
+            font-size: 1.3rem;
+        }
+        .players img {
+            height: 90px;
+            width: 90px;
+        }
+        .players {
+            display: inline-block;
+
+        }
+    }
+
+</style>
+<body>
+    <div class="game_container">
+        <div class="container">
+            <h1>Let's Play</h1>
+            <div class="players">
+                <p class="Player1">Player1</p>
+                <img src="diceimages/dice6.png" class="img1">
+            </div>
+            <div class="players">
+                <p class="Player2">Player2</p>
+                <img src="diceimages/dice6.png" class="img2">
+            </div>
+            <div class="roll">
+                <button type="button" class="btn" onclick="rollTheDice()">Roll The dice</button>
+            </div>
+            <div class="names">
+                <button type="button" class="btn" onclick="editNames()">Edit Names</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // player names
+
+        let player1 = "Player1";
+        let player2 = "Player2";
+
+        function editNames(){
+            player1 = prompt("Enter the Player1 Name: ");
+            player2 = prompt("Enter the Player2 Name: ");
+
+            if (player1.length < 1 || player2.lenght < 1){
+                alert("Please enter valid name");
+                return;
+            }
+            document.querySelector(".players > .Player1").innerHTML = player1
+            document.querySelector(".players > .Player2").innerHTML = player2
+        }
+
+        function rollTheDice() {
+            let dice1 = document.querySelector(".img1");
+            let dice2 = document.querySelector(".img2");
+
+            let result = document.querySelector("h1");
+            result.innerHTML = "";
+
+            dice1.setAttribute("src", "diceimages/diceroll.gif");
+            dice2.setAttribute("src", "diceimages/diceroll.gif");
+
+            setTimeout(()=> {
+                let randomNumber1 = Math.floor(Math.random()*6) + 1;
+                let randomNumber2 = Math.floor(Math.random()*6) + 1;
+
+                dice1.setAttribute('src', 'diceimages/dice' + randomNumber1 + '.png');
+                dice2.setAttribute('src', 'diceimages/dice' + randomNumber2 + '.png');
+
+                if (randomNumber1 === randomNumber2) {
+                    result.innerHTML = "Draw!!";
+                }
+                else if (randomNumber1 > randomNumber2) {
+                    result.innerHTML = player1 + " wins!!"; 
+                }
+                else {
+                    result.innerHTML = player2 + " wins!!"; 
+                }
+
+            },2000);
+        }
+
+    </script>
+</body>
+</html>
